@@ -60,10 +60,10 @@ $: {
 
 <main>
   <h1>Btc/sats to USD</h1>
-  <h4>1 {isSatoshis ? 'Bitcoin' : 'Satoshi'} = 1 {isSatoshis ? 'Bitcoin' : 'Satoshi'}</h4>
-  <h6>1 btc = {isSatoshis ? data.bitcoin?.usd * SATOSHIS_MULTIPLIER : data.bitcoin?.usd} $</h6>
+  <h4>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = 1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'}</h4>
+  <h6>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = {isSatoshis ? data.bitcoin?.usd* SATOSHIS_MULTIPLIER  : data.bitcoin?.usd} $</h6>
 
-  <InputBox label={isSatoshis ? 'Satoshis' : 'Bitcoin'} bind:value={bitcoinAmount} />
+  <InputBox label={!isSatoshis ? 'Bitcoin' : 'Satoshis'} bind:value={bitcoinAmount} />
   <button on:click={toggleUnit}>
     Convert to {isSatoshis ? 'Bitcoin' : 'Satoshis'}
   </button>
