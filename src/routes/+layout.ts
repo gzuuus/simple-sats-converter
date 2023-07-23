@@ -5,7 +5,7 @@ export const load = async ({ fetch }: { fetch: any }) => {
 
   try {
     let bitcoinPrice = await getBitcoinPrice(fetch);
-    console.log(bitcoinPrice.eur);
+    console.log(bitcoinPrice);
     return {
       bitcoinPrice
     };

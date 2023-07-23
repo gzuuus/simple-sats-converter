@@ -5,7 +5,6 @@
   import InputBox from '$lib/components/InputBox.svelte';
   import Btc from '$lib/icons/btc.svelte';
   import Sat from '$lib/icons/sat.svelte';
-  console.log(data.bitcoinPrice);
   let seconds = 0;
   let timerId: NodeJS.Timeout | null = null;
   let bitcoinAmount = 1;
