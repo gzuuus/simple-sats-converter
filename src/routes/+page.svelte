@@ -14,13 +14,8 @@
 
   const SATOSHIS_MULTIPLIER = 0.00000001;
 
-  function calculateResult(amount: number, unit: boolean): number {
-    return unit ? amount * data.bitcoinPrice.eur * SATOSHIS_MULTIPLIER : amount * data.bitcoinPrice.eur;
-  }
-
   function toggleUnit(): void {
     isSatoshis = !isSatoshis;
-    convertOperation = calculateResult(bitcoinAmount, isSatoshis);
   }
 
   function resetTimer(): void {
@@ -41,14 +36,12 @@
 
   onMount(() => {
     resetTimer();
-    convertOperation = calculateResult(bitcoinAmount, isSatoshis);
   });
 
   onDestroy(() => {
     if (timerId) clearInterval(timerId);
   });
 
-  $: convertOperation = calculateResult(bitcoinAmount, isSatoshis);
 </script>
 
 <main>
@@ -57,9 +50,9 @@
     <InputBox bind:value={bitcoinAmount} />
     {#key bitcoinAmount}
       {#if !isSatoshis}
-      <h2>{formatCurrency(convertOperation)}€</h2>
+      <h2>{formatCurrency(bitcoinAmount * data.bitcoinPrice.eur)}€</h2>
         {:else}
-        <h2>{convertOperation.toFixed(6)}€</h2>
+        <h2>{(bitcoinAmount * data.bitcoinPrice.eur * SATOSHIS_MULTIPLIER).toFixed(6)}€</h2>
       {/if}
     {/key}
   <div class="toggleSection">

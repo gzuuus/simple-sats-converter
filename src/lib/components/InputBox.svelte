@@ -14,7 +14,13 @@
     input {
       border-radius: 15px;
       padding: 15px;
-      border: none;
+      border: 1px solid white;
+      background: transparent;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      width: 42%;
+      text-align: center;
     }
   </style>
   
