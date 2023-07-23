@@ -5,7 +5,7 @@
   import InputBox from '$lib/components/InputBox.svelte';
   import Btc from '$lib/icons/btc.svelte';
   import Sat from '$lib/icons/sat.svelte';
-
+  console.log(data.bitcoinPrice);
   let seconds = 0;
   let timerId: NodeJS.Timeout | null = null;
   let bitcoinAmount = 1;
@@ -50,9 +50,9 @@
     <InputBox bind:value={bitcoinAmount} />
     {#key bitcoinAmount}
       {#if !isSatoshis}
-      <h2>{formatCurrency(bitcoinAmount * data.bitcoinPrice.eur)}€</h2>
+      <h2>{formatCurrency(bitcoinAmount * data.bitcoinPrice)}€</h2>
         {:else}
-        <h2>{(bitcoinAmount * data.bitcoinPrice.eur * SATOSHIS_MULTIPLIER).toFixed(6)}€</h2>
+        <h2>{(bitcoinAmount * data.bitcoinPrice * SATOSHIS_MULTIPLIER).toFixed(6)}€</h2>
       {/if}
     {/key}
   <div class="toggleSection">
@@ -69,7 +69,7 @@
   <div class="infoBox">
     <h4>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = 1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'}</h4>
     <div class="actualPrice">
-      <h6>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = {isSatoshis ? (data.bitcoinPrice.eur*SATOSHIS_MULTIPLIER).toFixed(6)  : formatCurrency(data.bitcoinPrice.eur)}€</h6>
+      <h6>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = {isSatoshis ? (data.bitcoinPrice*SATOSHIS_MULTIPLIER).toFixed(6)  : formatCurrency(data.bitcoinPrice)}€</h6>
       <button on:click={refresh}>🔄</button>
     </div>
     <h6>{seconds}' since last refresh</h6>
