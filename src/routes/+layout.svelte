@@ -7,6 +7,7 @@
         place-content: center;
         min-height: 100vh;
         text-align: center;
+        margin: 0px;
     }
   
     :global(button) {
