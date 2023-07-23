@@ -5,11 +5,9 @@ export const load = async ({ fetch }: { fetch: any }) => {
 
   try {
     let bitcoinPrice = await getBitcoinPrice(fetch);
-    console.log(bitcoinPrice);
+    console.log(bitcoinPrice.eur);
     return {
-      bitcoin: {
-        usd: bitcoinPrice,
-      },
+      bitcoinPrice
     };
   } catch (error) {
     console.error('Error in load function:', error);

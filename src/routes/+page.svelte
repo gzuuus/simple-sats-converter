@@ -1,92 +1,124 @@
-
 <script lang="ts">
   export let data;
+  import { onMount, onDestroy } from 'svelte';
+  import { invalidateAll } from '$app/navigation';
+  import InputBox from '$lib/components/InputBox.svelte';
+  import Btc from '$lib/icons/btc.svelte';
+  import Sat from '$lib/icons/sat.svelte';
 
-import { onMount, onDestroy } from 'svelte';
-import { invalidateAll } from '$app/navigation';
+  let seconds = 0;
+  let timerId: NodeJS.Timeout | null = null;
+  let bitcoinAmount = 1;
+  let isSatoshis = true;
+  let convertOperation: number;
 
-import InputBox from '$lib/components/InputBox.svelte';
+  const SATOSHIS_MULTIPLIER = 0.00000001;
 
-let seconds = 0;
-let timerId: NodeJS.Timeout | null = null;
-let bitcoinAmount = 1;
-let isSatoshis = false;
-let convertOperation: number;
+  function calculateResult(amount: number, unit: boolean): number {
+    return unit ? amount * data.bitcoinPrice.eur * SATOSHIS_MULTIPLIER : amount * data.bitcoinPrice.eur;
+  }
 
+  function toggleUnit(): void {
+    isSatoshis = !isSatoshis;
+    convertOperation = calculateResult(bitcoinAmount, isSatoshis);
+  }
 
-const SATOSHIS_MULTIPLIER = 0.00000001;
+  function resetTimer(): void {
+    if (timerId) clearInterval(timerId);
+    timerId = setInterval(() => {
+      seconds++;
+    }, 1000);
+  }
 
+  function refresh(): void {
+    invalidateAll();
+    seconds = 0;
+  }
 
-function calculateResult(amount: number, unit: boolean): number {
-  return unit ? amount * data.bitcoin?.usd * SATOSHIS_MULTIPLIER : amount * data.bitcoin?.usd;
-}
+  function formatCurrency(amount: number): string {
+    return new Intl.NumberFormat().format(amount);
+  }
 
-function toggleUnit(): void {
-  isSatoshis = !isSatoshis;
-  convertOperation = calculateResult(bitcoinAmount, isSatoshis);
-}
+  onMount(() => {
+    resetTimer();
+    convertOperation = calculateResult(bitcoinAmount, isSatoshis);
+  });
 
-function resetTimer(): void {
-  if (timerId) clearInterval(timerId);
-  timerId = setInterval(() => {
-    seconds++;
-  }, 1000);
-}
+  onDestroy(() => {
+    if (timerId) clearInterval(timerId);
+  });
 
-function refresh(): void {
-  invalidateAll();
-  resetTimer();
-  convertOperation = calculateResult(bitcoinAmount, isSatoshis);
-
-
-  seconds = 0;
-}
-
-
-onMount(() => {
-  resetTimer();
-});
-
-
-onDestroy(() => {
-  if (timerId) clearInterval(timerId);
-});
-
-
-$: {
-  convertOperation = calculateResult(bitcoinAmount, isSatoshis);
-}
+  $: convertOperation = calculateResult(bitcoinAmount, isSatoshis);
 </script>
 
 <main>
-  <h1>Btc/sats to USD</h1>
-  <h4>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = 1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'}</h4>
-  <h6>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = {isSatoshis ? data.bitcoin?.usd* SATOSHIS_MULTIPLIER  : data.bitcoin?.usd} $</h6>
-
-  <InputBox label={!isSatoshis ? 'Bitcoin' : 'Satoshis'} bind:value={bitcoinAmount} />
-  <button on:click={toggleUnit}>
-    Convert to {isSatoshis ? 'Bitcoin' : 'Satoshis'}
-  </button>
-
-  {#key bitcoinAmount}
-    <h3>{convertOperation}$</h3>
-  {/key}
-
-  <button on:click={refresh}>🔄</button>
-  <h6>{seconds}' since last refresh</h6>
+  <h1>{!isSatoshis ? 'Bitcoin' : 'Satoshis'} to EUR</h1>
+<div class="conversionSection">
+    <InputBox bind:value={bitcoinAmount} />
+    {#key bitcoinAmount}
+      {#if !isSatoshis}
+      <h2>{formatCurrency(convertOperation)}€</h2>
+        {:else}
+        <h2>{convertOperation.toFixed(6)}€</h2>
+      {/if}
+    {/key}
+  <div class="toggleSection">
+    <h6>Change to</h6>
+    <button on:click={toggleUnit}>
+      {#if !isSatoshis}
+      <Sat size={20}/>
+      {:else}
+      <Btc size={22}/>
+      {/if}
+    </button>
+  </div>
+</div>
+  <div class="infoBox">
+    <h4>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = 1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'}</h4>
+    <div class="actualPrice">
+      <h6>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = {isSatoshis ? (data.bitcoinPrice.eur*SATOSHIS_MULTIPLIER).toFixed(6)  : formatCurrency(data.bitcoinPrice.eur)}€</h6>
+      <button on:click={refresh}>🔄</button>
+    </div>
+    <h6>{seconds}' since last refresh</h6>
+  </div>
 </main>
 
 <style>
-  :global(body) {
-    background-color: #111;
-    color: white;
-  }
   main {
+	border: 1px solid white;
+	text-align: center;
+	max-width: 400px;
+	margin: 0 auto;
+	padding: 15px;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  min-width: 322px;
+}
+  .conversionSection {
     border: 1px solid white;
-    text-align: center;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 15px;
     border-radius: 15px;
+    padding: 1em;
+  }
+  .actualPrice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  }
+  .actualPrice button {
+    padding: 0px;
+    border: none;
+    background: transparent;
+  }
+  .infoBox {
+    padding-bottom: 0;
+  }
+  .toggleSection {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5em;
   }
 </style>
