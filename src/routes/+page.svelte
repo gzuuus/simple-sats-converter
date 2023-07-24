@@ -78,7 +78,7 @@
   <div class="infoBox">
     <h4>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = 1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'}</h4>
     <div class="actualPrice">
-      <h6>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = {isSatoshis ? (pickedCurrency*SATOSHIS_MULTIPLIER).toFixed(6)  : formatCurrency(pickedCurrency)}{currSymbol}</h6>
+      <!-- <h6>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = {isSatoshis ? (pickedCurrency*SATOSHIS_MULTIPLIER).toFixed(6)  : formatCurrency(pickedCurrency)}{currSymbol}</h6> -->
       <button on:click={refresh}>🔄</button>
     </div>
     <div class="detailsBox"> 
