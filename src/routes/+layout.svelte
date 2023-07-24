@@ -9,7 +9,9 @@
         text-align: center;
         margin: 0px;
     }
-  
+    :global(a) {
+     color: white; 
+    }
     :global(button) {
       background-color: white;
       border: 1px solid white;
