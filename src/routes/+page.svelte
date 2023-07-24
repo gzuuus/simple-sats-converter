@@ -8,33 +8,32 @@
   import Info from '$lib/icons/info.svelte';
 	import Gh from '$lib/icons/gh.svelte';
   import Lightning from '$lib/icons/lightning.svelte';
-
   let bitcoinAmount = 1;
   let isSatoshis = true;
-  let pickedCurrency = data.bitcoinPrice.eur;
-   let currSymbol = '€';
-  //  let result = bitcoinAmount * pickedCurrency
+  $: pickedCurrency = data.bitcoinPrice.eur;
+  $: currSymbol = '€';
+  $: result = bitcoinAmount * pickedCurrency
   $: timeNow= unixTimeNow();
   const SATOSHIS_MULTIPLIER = 0.00000001;
 
   function toggleUnit(): void {
     isSatoshis = !isSatoshis;
   }
-    // function pickCurr(curr:string) {
-    //   if (curr == 'eur') {  
-    //     pickedCurrency = data.bitcoinPrice.eur;
-    //     currSymbol = '€';
-    //   } else if (curr == 'usd') {
-    //     pickedCurrency = data.bitcoinPrice.usd;
-    //     currSymbol = '$';
-    //   } else if (curr == 'gbp') {
-    //     pickedCurrency = data.bitcoinPrice.gbp;
-    //     currSymbol = '£';
-    //   }
-    //   result = bitcoinAmount * pickedCurrency
-    //   console.log(pickedCurrency);
-    //   return pickedCurrency
-    // }
+    function pickCurr(curr:string) {
+      if (curr == 'eur') {  
+        pickedCurrency = data.bitcoinPrice.eur;
+        currSymbol = '€';
+      } else if (curr == 'usd') {
+        pickedCurrency = data.bitcoinPrice.usd;
+        currSymbol = '$';
+      } else if (curr == 'gbp') {
+        pickedCurrency = data.bitcoinPrice.gbp;
+        currSymbol = '£';
+      }
+      result = bitcoinAmount * pickedCurrency
+      console.log(pickedCurrency);
+      return pickedCurrency
+    }
 
   function refresh(): void {
     invalidateAll();
@@ -47,7 +46,7 @@
 </script>
 
 <main>
-  <!-- <div class="headerSection">
+  <div class="headerSection">
   <h1>{!isSatoshis ? 'Bitcoin' : 'Satoshis'} to 
   <select on:change={event => pickCurr(event.currentTarget.value)}>
     <option value="eur">EUR</option>
@@ -74,10 +73,10 @@
       {/if}
     </button>
   </div>
-</div> -->
+</div>
   <div class="infoBox">
     <h4>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = 1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'}</h4>
-    <!-- <div class="actualPrice">
+    <div class="actualPrice">
       <h6>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = {isSatoshis ? (pickedCurrency*SATOSHIS_MULTIPLIER).toFixed(6)  : formatCurrency(pickedCurrency)}{currSymbol}</h6>
       <button on:click={refresh}>🔄</button>
     </div>
@@ -91,7 +90,7 @@
           <a href="lightning:gzuuus@getalby.com" target="_blank" rel="noopener noreferrer"><Lightning size={20}/></a>
         </div>
       </details>
-    </div> -->
+    </div>
   </div>
 
 </main>
