@@ -11,30 +11,30 @@
 
   let bitcoinAmount = 1;
   let isSatoshis = true;
-  $: pickedCurrency = data.bitcoinPrice.eur;
-  $: currSymbol = '€';
-  $: result = bitcoinAmount * pickedCurrency
+  // $: pickedCurrency = data.bitcoinPrice.eur;
+  // $: currSymbol = '€';
+  // $: result = bitcoinAmount * pickedCurrency
   $: timeNow= unixTimeNow();
   const SATOSHIS_MULTIPLIER = 0.00000001;
 
   function toggleUnit(): void {
     isSatoshis = !isSatoshis;
   }
-   function pickCurr(curr:string) {
-     if (curr == 'eur') {  
-       pickedCurrency = data.bitcoinPrice.eur;
-       currSymbol = '€';
-     } else if (curr == 'usd') {
-       pickedCurrency = data.bitcoinPrice.usd;
-       currSymbol = '$';
-     } else if (curr == 'gbp') {
-       pickedCurrency = data.bitcoinPrice.gbp;
-       currSymbol = '£';
-     }
-     result = bitcoinAmount * pickedCurrency
-     console.log(pickedCurrency);
-     return pickedCurrency
-   }
+  //  function pickCurr(curr:string) {
+  //    if (curr == 'eur') {  
+  //      pickedCurrency = data.bitcoinPrice.eur;
+  //      currSymbol = '€';
+  //    } else if (curr == 'usd') {
+  //      pickedCurrency = data.bitcoinPrice.usd;
+  //      currSymbol = '$';
+  //    } else if (curr == 'gbp') {
+  //      pickedCurrency = data.bitcoinPrice.gbp;
+  //      currSymbol = '£';
+  //    }
+  //    result = bitcoinAmount * pickedCurrency
+  //    console.log(pickedCurrency);
+  //    return pickedCurrency
+  //  }
 
   function refresh(): void {
     invalidateAll();
