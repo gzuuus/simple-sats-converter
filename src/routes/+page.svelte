@@ -11,7 +11,7 @@
 
   let bitcoinAmount = 1;
   let isSatoshis = true;
-  let pickedCurrency = data.bitcoinPrice.eur;
+  $: pickedCurrency = data.bitcoinPrice.eur;
   $: currSymbol = '€';
   $: result = bitcoinAmount * pickedCurrency
   $: timeNow= unixTimeNow();
@@ -47,7 +47,7 @@
 </script>
 
 <main>
-  <div class="headerSection">
+  <!-- <div class="headerSection">
   <h1>{!isSatoshis ? 'Bitcoin' : 'Satoshis'} to 
   <select on:change={event => pickCurr(event.currentTarget.value)}>
     <option value="eur">EUR</option>
@@ -74,7 +74,7 @@
       {/if}
     </button>
   </div>
-</div>
+</div> -->
   <div class="infoBox">
     <h4>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = 1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'}</h4>
     <div class="actualPrice">
