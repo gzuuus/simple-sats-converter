@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let data;
+  // export let data;
   import { invalidateAll } from '$app/navigation';
   import { unixTimeNow } from '$lib/utils/helpers';
   import { onMount } from 'svelte';
@@ -82,11 +82,11 @@
       <!-- <h6>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = {isSatoshis ? (pickedCurrency*SATOSHIS_MULTIPLIER).toFixed(6)  : formatCurrency(pickedCurrency)}{currSymbol}</h6> -->
       <button on:click={refresh}>🔄</button>
     </div>
-    {#if data.bitcoinPrice}
+    <!-- {#if data.bitcoinPrice}
       {data.bitcoinPrice.eur}
       {data.bitcoinPrice.usd}
       {data.bitcoinPrice.gbp}
-    {/if}
+    {/if} -->
     <div class="detailsBox"> 
       <details>
         <summary><Info size={20}/></summary>
