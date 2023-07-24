@@ -61,7 +61,7 @@
       {#if !isSatoshis}
       <h2>{formatCurrency(result)}{currSymbol}</h2>
         {:else}
-        <h2>{(result * SATOSHIS_MULTIPLIER).toFixed(6)}€</h2>
+        <h2>{(result * SATOSHIS_MULTIPLIER).toFixed(6)}{currSymbol}</h2>
       {/if}
     {/key}
   <div class="toggleSection">
