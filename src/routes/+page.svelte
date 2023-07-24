@@ -8,33 +8,33 @@
   import Info from '$lib/icons/info.svelte';
 	import Gh from '$lib/icons/gh.svelte';
   import Lightning from '$lib/icons/lightning.svelte';
-
+  console.log(data.bitcoinPrice?.eur);
   let bitcoinAmount = 1;
   let isSatoshis = true;
-  $: pickedCurrency = data.bitcoinPrice.eur;
-  $: currSymbol = '€';
-  $: result = bitcoinAmount * pickedCurrency
+   $: pickedCurrency = data.bitcoinPrice?.eur;
+   $: currSymbol = '€';
+   $: result = bitcoinAmount * pickedCurrency
   $: timeNow= unixTimeNow();
   const SATOSHIS_MULTIPLIER = 0.00000001;
 
   function toggleUnit(): void {
     isSatoshis = !isSatoshis;
   }
-  // function pickCurr(curr:string) {
-  //   if (curr == 'eur') {  
-  //     pickedCurrency = data.bitcoinPrice.eur;
-  //     currSymbol = '€';
-  //   } else if (curr == 'usd') {
-  //     pickedCurrency = data.bitcoinPrice.usd;
-  //     currSymbol = '$';
-  //   } else if (curr == 'gbp') {
-  //     pickedCurrency = data.bitcoinPrice.gbp;
-  //     currSymbol = '£';
-  //   }
-  //   result = bitcoinAmount * pickedCurrency
-  //   console.log(pickedCurrency);
-  //   return pickedCurrency
-  // }
+   function pickCurr(curr:string) {
+     if (curr == 'eur') {  
+       pickedCurrency = data.bitcoinPrice?.eur;
+       currSymbol = '€';
+     } else if (curr == 'usd') {
+       pickedCurrency = data.bitcoinPrice?.usd;
+       currSymbol = '$';
+     } else if (curr == 'gbp') {
+       pickedCurrency = data.bitcoinPrice?.gbp;
+       currSymbol = '£';
+     }
+     result = bitcoinAmount * pickedCurrency
+     console.log(pickedCurrency);
+     return pickedCurrency
+   }
 
   function refresh(): void {
     invalidateAll();
@@ -48,12 +48,12 @@
 
 <main>
   <div class="headerSection">
-  <h1>{!isSatoshis ? 'Bitcoin' : 'Satoshis'} to EUR
-  <!-- <select on:change={event => pickCurr(event.currentTarget.value)}>
+  <h1>{!isSatoshis ? 'Bitcoin' : 'Satoshis'} to
+  <select on:change={event => pickCurr(event.currentTarget.value)}>
     <option value="eur">EUR</option>
     <option value="usd">USD</option>
     <option value="gbp">GBP</option>
-  </select></h1> -->
+  </select></h1>
   </div>
 <div class="borderedSection">
     <InputBox bind:value={bitcoinAmount} />
