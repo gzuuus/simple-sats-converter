@@ -77,8 +77,8 @@
 </div> -->
   <div class="infoBox">
     <h4>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = 1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'}</h4>
-    <div class="actualPrice">
-      <!-- <h6>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = {isSatoshis ? (pickedCurrency*SATOSHIS_MULTIPLIER).toFixed(6)  : formatCurrency(pickedCurrency)}{currSymbol}</h6> -->
+    <!-- <div class="actualPrice">
+      <h6>1 {!isSatoshis ? 'Bitcoin' : 'Satoshi'} = {isSatoshis ? (pickedCurrency*SATOSHIS_MULTIPLIER).toFixed(6)  : formatCurrency(pickedCurrency)}{currSymbol}</h6>
       <button on:click={refresh}>🔄</button>
     </div>
     <div class="detailsBox"> 
@@ -91,7 +91,7 @@
           <a href="lightning:gzuuus@getalby.com" target="_blank" rel="noopener noreferrer"><Lightning size={20}/></a>
         </div>
       </details>
-    </div>
+    </div> -->
   </div>
 
 </main>
