@@ -7,7 +7,7 @@ export const getBitcoinPrice = async (fetch: any) => {
       }
   
       const responseData = await response.json();
-      return responseData.bitcoin.eur;
+      return responseData.bitcoin;
     } catch (error) {
       console.error('Error fetching Bitcoin price:', error);
       throw new Error('Error fetching Bitcoin price');
