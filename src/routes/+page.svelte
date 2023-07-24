@@ -11,7 +11,7 @@
 
   let bitcoinAmount = 1;
   let isSatoshis = true;
-  //  let pickedCurrency = data.bitcoinPrice.eur;
+  let pickedCurrency = data.bitcoinPrice.eur;
    let currSymbol = '€';
   //  let result = bitcoinAmount * pickedCurrency
   $: timeNow= unixTimeNow();
