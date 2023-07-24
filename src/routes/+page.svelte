@@ -8,12 +8,13 @@
   import Info from '$lib/icons/info.svelte';
 	import Gh from '$lib/icons/gh.svelte';
   import Lightning from '$lib/icons/lightning.svelte';
-  console.log(data.bitcoinPrice?.eur);
+
   let bitcoinAmount = 1;
   let isSatoshis = true;
-   $: pickedCurrency = data.bitcoinPrice?.eur;
-   $: currSymbol = '€';
-   $: result = bitcoinAmount * pickedCurrency
+
+  $: pickedCurrency = data.bitcoinPrice?.eur!;
+  $: currSymbol = '€';
+  $: result = bitcoinAmount * pickedCurrency
   $: timeNow= unixTimeNow();
   const SATOSHIS_MULTIPLIER = 0.00000001;
 
@@ -22,13 +23,13 @@
   }
    function pickCurr(curr:string) {
      if (curr == 'eur') {  
-       pickedCurrency = data.bitcoinPrice?.eur;
+       pickedCurrency = data.bitcoinPrice?.eur!;
        currSymbol = '€';
      } else if (curr == 'usd') {
-       pickedCurrency = data.bitcoinPrice?.usd;
+       pickedCurrency = data.bitcoinPrice?.usd!;
        currSymbol = '$';
      } else if (curr == 'gbp') {
-       pickedCurrency = data.bitcoinPrice?.gbp;
+       pickedCurrency = data.bitcoinPrice?.gbp!;
        currSymbol = '£';
      }
      result = bitcoinAmount * pickedCurrency

@@ -1,5 +1,4 @@
 import { getBitcoinPrice } from '../api';
-
 export const load = async ({ fetch }: { fetch: any }) => {
   console.log('loading...');
 

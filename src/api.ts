@@ -3,7 +3,6 @@ interface BitcoinPriceData {
     usd: number;
     gbp: number;
   }
-  
   export const getBitcoinPrice = async (fetch: any): Promise<BitcoinPriceData> => {
     try {
       const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur,usd,gbp');
