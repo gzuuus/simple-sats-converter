@@ -6,4 +6,4 @@
  - Currencies supported: EUR, USD, GBP
 
  ### TO-DO
- - [ ] Convert to currency to btc/sats
+ - [ ] Convert to currency to EUR/sats
